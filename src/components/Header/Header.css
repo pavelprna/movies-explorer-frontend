@@ -1,13 +1,17 @@
 .header {
+  background: #073042;
+  padding: 18px 14px;
+  min-height: 74px;
+}
+
+.header__container {
   display: flex;
   align-items: center;
-  padding: 18px 14px;
   font-family: Inter, Helvetica, Arial, sans-serif;
   font-weight: 500;
-  max-width: 1140px;
   margin: 0 auto;
-  background: #073042;
 }
+
 .header__logo {
   display: block;
   background: url(../../images/logo/logo.svg) center no-repeat;
