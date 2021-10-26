@@ -1,6 +1,6 @@
-const Main = () => {
+function Main(props) {
   return (
-    <></>
+    <>{props.children}</>
   )
 }
 

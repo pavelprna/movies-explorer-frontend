@@ -1,10 +1,14 @@
-import Main from "../Main/Main";
+import { BrowserRouter } from "react-router-dom";
+import Header from "../Header/Header.js";
+import Main from "../Main/Main.js";
 
 function App() {
   return (
-    <Main>
-      
-    </Main>
+    <BrowserRouter>
+      <Main>
+        <Header />
+      </Main>
+    </BrowserRouter>
   );
 }
 
