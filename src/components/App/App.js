@@ -1,6 +1,7 @@
 import { BrowserRouter } from "react-router-dom";
 import AboutMe from "../AboutMe/AboutMe.js";
 import AboutProject from "../AboutProject/AboutProject.js";
+import Footer from "../Footer/Footer.js";
 import Header from "../Header/Header.js";
 import Main from "../Main/Main.js";
 import NavTab from "../NavTab/NavTab.js";
@@ -21,6 +22,7 @@ function App() {
           <Portfolio />
         </AboutMe>
       </Main>
+      <Footer />
     </BrowserRouter>
   );
 }
