@@ -1,4 +1,5 @@
 import { BrowserRouter } from "react-router-dom";
+import AboutMe from "../AboutMe/AboutMe.js";
 import AboutProject from "../AboutProject/AboutProject.js";
 import Header from "../Header/Header.js";
 import Main from "../Main/Main.js";
@@ -15,6 +16,7 @@ function App() {
         <NavTab />
         <AboutProject />
         <Techs />
+        <AboutMe />
       </Main>
     </BrowserRouter>
   );
