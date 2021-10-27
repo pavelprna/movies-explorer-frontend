@@ -4,6 +4,7 @@ import AboutProject from "../AboutProject/AboutProject.js";
 import Header from "../Header/Header.js";
 import Main from "../Main/Main.js";
 import NavTab from "../NavTab/NavTab.js";
+import Portfolio from "../Portfolio/Portfolio.js";
 import Promo from "../Promo/Promo.js";
 import Techs from "../Techs/Techs.js";
 
@@ -16,7 +17,9 @@ function App() {
         <NavTab />
         <AboutProject />
         <Techs />
-        <AboutMe />
+        <AboutMe>
+          <Portfolio />
+        </AboutMe>
       </Main>
     </BrowserRouter>
   );
