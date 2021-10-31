@@ -1,7 +1,7 @@
 import { BrowserRouter, Route, Switch } from "react-router-dom";
 
-import Footer from "../Footer/Footer.js";
 import Main from "../Main/Main.js";
+import Movies from "../Movies/Movies.js";
 import NotFound from "../NotFound/NotFound";
 
 
@@ -11,7 +11,9 @@ function App() {
       <Switch>
         <Route exact path='/'>
           <Main />
-          <Footer />
+        </Route>
+        <Route path='/movies'>
+          <Movies />
         </Route>
         <Route path='*'>
           <NotFound />

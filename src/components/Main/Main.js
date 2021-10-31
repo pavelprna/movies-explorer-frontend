@@ -1,5 +1,6 @@
 import AboutMe from "../AboutMe/AboutMe.js";
 import AboutProject from "../AboutProject/AboutProject.js";
+import Footer from "../Footer/Footer.js";
 import Header from "../Header/Header.js";
 import NavTab from "../NavTab/NavTab.js";
 import Portfolio from "../Portfolio/Portfolio.js";
@@ -17,6 +18,7 @@ function Main() {
       <AboutMe>
         <Portfolio />
       </AboutMe>
+      <Footer />
     </>
   )
 }
