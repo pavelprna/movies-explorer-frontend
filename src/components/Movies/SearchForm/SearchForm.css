@@ -21,6 +21,10 @@
   border-radius: 50px;
 }
 
+.search-form__input::placeholder {
+  color: #a0a0a0;
+}
+
 .search-form__input:focus {
   outline: none;
 }

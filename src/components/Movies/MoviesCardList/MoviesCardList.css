@@ -1,0 +1,24 @@
+.movies {
+  padding: 40px 10px 80px;
+}
+
+.movies__list {
+  padding: 0;
+  margin: 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(290px, 1fr));
+  gap: 40px;
+  list-style: none;
+}
+
+@media (min-width: 768px) {
+  .movies__list {
+    gap: 45px 30px;
+  }
+}
+
+@media (min-width: 1280px) {
+  .movies__list {
+    gap: 58px 30px;
+  }
+}
