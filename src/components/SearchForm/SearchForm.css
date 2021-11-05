@@ -5,6 +5,7 @@
 }
 
 .search-form {
+  width: 100%;
   display: grid;
   grid-template-columns: 1fr max-content;
   align-items: center;
@@ -33,10 +34,20 @@
   margin-right: 7px;
   grid-row: 1;
   grid-column: -2 / -1;
-  background: #3456f3 url(../../../images/logo/search-icon.svg) center no-repeat;
+  background: #3456f3 url(../../images/logo/search-icon.svg) center no-repeat;
   border: none;
   padding: 0;
   border-radius: 48px;
   min-width: 80px;
   min-height: 34px;
+}
+
+@media (min-width: 1024px) {
+  .search {
+    display: flex;
+  }
+
+  .search-form {
+    margin-right: 40px;
+  }
 }

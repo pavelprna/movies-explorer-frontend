@@ -3,6 +3,7 @@ import { BrowserRouter, Route, Switch } from "react-router-dom";
 import Main from "../Main/Main.js";
 import Movies from "../Movies/Movies.js";
 import NotFound from "../NotFound/NotFound";
+import SavedMovies from "../SavedMovies/SavedMovies.js";
 
 
 function App() {
@@ -14,6 +15,9 @@ function App() {
         </Route>
         <Route path='/movies'>
           <Movies />
+        </Route>
+        <Route path='/saved-movies'>
+          <SavedMovies />
         </Route>
         <Route path='*'>
           <NotFound />
