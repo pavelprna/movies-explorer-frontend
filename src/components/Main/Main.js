@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom';
 import AboutMe from "../AboutMe/AboutMe.js";
 import AboutProject from "../AboutProject/AboutProject.js";
 import Footer from "../Footer/Footer.js";
@@ -10,7 +11,10 @@ import Techs from "../Techs/Techs.js";
 function Main() {
   return (
     <>
-      <Header />
+      <Header color='green'>
+        <Link to='/signup' className='header__link header__link_type_signup'>Регистрация</Link>
+        <Link to='/signin' className='header__link header__button button'>Вход</Link>
+      </Header>
       <Promo />
       <NavTab />
       <AboutProject />

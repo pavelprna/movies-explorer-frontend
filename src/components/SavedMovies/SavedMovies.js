@@ -3,6 +3,7 @@ import Footer from '../Footer/Footer';
 import Header from '../Header/Header';
 import MoviesCard from '../MoviesCard/MoviesCard';
 import MoviesCardList from '../MoviesCardList/MoviesCardList';
+import Navigation from '../Navigation/Navigation';
 import SearchForm from '../SearchForm/SearchForm';
 import './SavedMovies.css';
 
@@ -13,7 +14,9 @@ import movieFour from '../../images/examples/movie-4.jpg';
 function SavedMovies() {
   return (
     <>
-      <Header />
+      <Header>
+        <Navigation />
+      </Header>
       <SearchForm>
         <FilterCheckbox />
       </SearchForm>

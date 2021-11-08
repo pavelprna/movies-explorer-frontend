@@ -1,4 +1,5 @@
 import './Movies.css';
+import { Link } from 'react-router-dom';
 import Footer from '../Footer/Footer';
 import Header from '../Header/Header';
 import MoviesCardList from '../MoviesCardList/MoviesCardList';
@@ -11,11 +12,14 @@ import movieTwo from '../../images/examples/movie-2.jpg';
 import movieThree from '../../images/examples/movie-3.jpg';
 import movieFour from '../../images/examples/movie-4.jpg';
 import movieFive from '../../images/examples/movie-5.jpg';
+import Navigation from '../Navigation/Navigation';
 
 function Movies() {
   return (
     <>
-      <Header />
+      <Header>
+        <Navigation />
+      </Header>
       <SearchForm>
         <FilterCheckbox />
       </SearchForm>
