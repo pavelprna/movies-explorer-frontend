@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { NavLink } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 import './Navigation.css';
 
 const Navigation = () => {
@@ -22,6 +22,9 @@ const Navigation = () => {
         </li>
         <li className="navigation__list-item">
           <NavLink to='/saved-movies' className='header__link navigation__link' activeClassName='navigation__link_active'>Сохранённые фильмы</NavLink>
+        </li>
+        <li className="navigation__list-item">
+          <Link to='/profile' className="navigation__button">Аккаунт</Link>
         </li>
       </ul>
       <button onClick={handleBurgerClick} className={`burger ${isOpened ? 'burger_opened' : ''}`}>
