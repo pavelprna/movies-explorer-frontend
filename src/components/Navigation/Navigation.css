@@ -112,7 +112,7 @@
 .navigation__list-item:last-of-type {
   flex: 1;
   display: flex;
-  align-items: end;
+  align-items: flex-end;
 }
 
 @media (min-width: 1024px) {
@@ -131,7 +131,7 @@
     margin-right: 0;
     flex: 1;
     display: flex;
-    justify-content: end;
+    justify-content: flex-end;
   }
 
   .navigation__link {
