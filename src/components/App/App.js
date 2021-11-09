@@ -1,4 +1,5 @@
 import { BrowserRouter, Route, Switch } from "react-router-dom";
+import Login from "../Login/Login.js";
 
 import Main from "../Main/Main.js";
 import Movies from "../Movies/Movies.js";
@@ -26,6 +27,9 @@ function App() {
         </Route>
         <Route path='/signup'>
           <Register />
+        </Route>
+        <Route path='/signin'>
+          <Login />
         </Route>
         <Route path='*'>
           <NotFound />
