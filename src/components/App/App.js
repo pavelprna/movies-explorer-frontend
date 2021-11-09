@@ -4,6 +4,7 @@ import Main from "../Main/Main.js";
 import Movies from "../Movies/Movies.js";
 import NotFound from "../NotFound/NotFound";
 import Profile from "../Profile/Profile.js";
+import Register from "../Register/Register.js";
 import SavedMovies from "../SavedMovies/SavedMovies.js";
 
 
@@ -22,6 +23,9 @@ function App() {
         </Route>
         <Route path='/profile'>
           <Profile />
+        </Route>
+        <Route path='/signup'>
+          <Register />
         </Route>
         <Route path='*'>
           <NotFound />
