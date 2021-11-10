@@ -11,15 +11,16 @@ function Register() {
     >
       <label className="form__label">
         Имя
-        <input type="text" className="form__input" />
+        <input type="text" className="form__input" defaultValue="Виталий" />
       </label>
       <label className="form__label">
         E-mail
-        <input type="email" className="form__input" />
+        <input type="email" className="form__input" defaultValue="pochta@yandex.ru|" />
       </label>
       <label className="form__label">
         Пароль
-        <input type="password" className="form__input" />
+        <input type="password" className="form__input form__input_invalid" defaultValue="invalid-password" />
+        <p className="form__error-message">Что-то пошло не так...</p>
       </label>
     </PageWithForm>
   )
