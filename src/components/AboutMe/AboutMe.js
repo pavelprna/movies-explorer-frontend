@@ -21,7 +21,7 @@ function AboutMe(props) {
             </li>
           </ul>
         </div>
-        <img src={photo} alt="" className="card__image" />
+        <img src={photo} alt="Павел, фронтенд-разработчик" className="card__image" />
       </article>
       {props.children}
       </div>

@@ -62,6 +62,12 @@
   line-height: 15px;
   color: #000;
   margin: 10px 0;
+  outline: 1px solid rgba(43, 224, 128, 0);
+  transition: outline 400ms;
+}
+
+.form__input:focus {
+  outline: 1px solid #2be080;
 }
 
 .form__input_invalid {
@@ -84,6 +90,11 @@
   line-height: 15px;
   color: #fff;
   border-radius: 3px;
+  transition: opacity 300ms;
+}
+
+.form__submit:hover {
+  opacity: 0.8;
 }
 
 @media (min-width: 768px) {

@@ -7,7 +7,7 @@ function PageWithForm({ children, title, submitButtonText, bottomText }) {
 
   return (
     <section className="section page">
-      <img src={logo} alt="" className="page__logo" />
+      <img src={logo} alt="Логотип" className="page__logo" />
       <h1 className="page__title">{title}</h1>
       <form action="" className="form">
         {children}
