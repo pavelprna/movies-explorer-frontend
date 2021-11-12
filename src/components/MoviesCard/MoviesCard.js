@@ -1,7 +1,8 @@
 import { useState } from 'react';
 import './MoviesCard.css';
 
-function MoviesCard({ movieImage, movieTitle, movieDuration }) {
+function MoviesCard({ movieData }) {
+  const { image, nameRU } = movieData;
   const [saved, setSaved] = useState(false);
 
   const handleClick = () => {
@@ -11,9 +12,9 @@ function MoviesCard({ movieImage, movieTitle, movieDuration }) {
   return (
     <li className="movies__list-item">
       <article className="movies-card">
-        <img onClick={handleClick} src={movieImage} alt={movieTitle} className="movies-card__image" />
-        <h2 className="movies-card__title">{movieTitle}</h2>
-        <p className="movies-card__duration">{movieDuration}</p>
+        <img onClick={handleClick} src={`https://api.nomoreparties.co${image.url}`} alt={nameRU} className="movies-card__image" />
+        <h2 className="movies-card__title">{nameRU}</h2>
+        <p className="movies-card__duration">{34}</p>
         {
           saved
             ? <button onClick={handleClick} className="movies-card__badge movies-card__saved-badge"></button>
