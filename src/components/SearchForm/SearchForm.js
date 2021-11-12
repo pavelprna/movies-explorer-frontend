@@ -1,17 +1,13 @@
-import { useState } from 'react';
 import './SearchForm.css';
 
-function SearchForm({ children, onSubmit }) {
-  const [value, setValue] = useState('');
-
+function SearchForm({ children, onSubmit, onChange }) {
   const handleChange = (e) => {
-    setValue(e.target.value.toLowerCase());
+    onChange(e.target.value.toLowerCase());
   }
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // console.log(onSubmit)
-    onSubmit(value)
+    onSubmit()
   }
 
   return (
@@ -22,7 +18,6 @@ function SearchForm({ children, onSubmit }) {
           <button type="submit" onClick={handleSubmit} className="search-form__button" />
         </form>
         {children}
-
       </div>
     </section>
   )
