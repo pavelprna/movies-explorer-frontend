@@ -1,5 +1,5 @@
-import { Route, Switch, useHistory, withRouter } from "react-router-dom";
-import { useState } from "react";
+import { Route, Switch, useHistory, useLocation, withRouter } from "react-router-dom";
+import { useCallback, useEffect, useState } from "react";
 import { currentUserContext } from "../../contexts/CurrentUserContext.js";
 import mainApi from "../../utils/MainApi.js";
 import Login from "../Login/Login.js";
@@ -12,7 +12,34 @@ import SavedMovies from "../SavedMovies/SavedMovies.js";
 
 function App() {
   const [currentUser, setCurrentUser] = useState({});
+  const [loggedIn, setLoggedIn] = useState(false);
+  const location = useLocation();
   const history = useHistory();
+
+  useEffect(() => {
+    if (loggedIn) {
+
+    }
+  }, [loggedIn]);
+
+  const tokenCheck = useCallback(() => {
+    mainApi.getUser()
+      .then((user) => {
+        setCurrentUser(user)
+        setLoggedIn(true)
+        if (location.pathname === '/signin' || location.pathname === '/signup') {
+          history.push('/movies');
+        } else {
+          history.push(location.pathname);
+        }
+      })
+      .catch(err => console.log(err))
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [history])
+
+  useEffect(() => {
+    tokenCheck();
+  }, [tokenCheck])
 
   const handleSignIn = ({ name, email, password }) => {
     mainApi.createUser({ name, email, password })
@@ -20,10 +47,11 @@ function App() {
         mainApi.signIn({ email: user.email, password })
           .then(user => {
             setCurrentUser(user);
-            history.push('movies');
+            setLoggedIn(true)
+            history.push('/movies');
           })
       })
-      .catch((err, res) => console.log(err, res))
+      .catch((err) => console.log(err))
   }
 
   return (
