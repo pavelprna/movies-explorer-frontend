@@ -1,27 +1,50 @@
-import { Link } from 'react-router-dom';
+import { useContext, useEffect, useState } from 'react/cjs/react.development';
+import { currentUserContext } from '../../contexts/CurrentUserContext';
 import Header from '../Header/Header';
 import Navigation from '../Navigation/Navigation';
 import './Profile.css';
 
-function Profile() {
+function Profile({ onSubmit, onLogout }) {
+  const currentUser = useContext(currentUserContext);
+  const [values, setValues] = useState({ name: '', email: '' });
+
+  useEffect(() => {
+    setValues({ name: currentUser.name || '', email: currentUser.email || '' })
+  }, [currentUser])
+
+  const handleChange = (e) => {
+    const target = e.target;
+    const name = target.name;
+    const value = target.value;
+    setValues({
+      ...values,
+      [name]: value,
+    })
+  }
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    onSubmit(values)
+  }
+
   return (
     <>
       <Header>
         <Navigation />
       </Header>
       <section className="profile">
-        <h1 className="profile__title">Привет, Виталий!</h1>
+        <h1 className="profile__title">Привет, {currentUser.name}!</h1>
         <form className="profile__form">
           <label htmlFor="" className="profile__label">
             Имя
-            <input type="text" className="profile__input" defaultValue="Виталий Витальевич Виталенко-Виталюк" />
+            <input type="text" name='name' className="profile__input" value={values.name} onChange={handleChange} />
           </label>
           <label htmlFor="" className="profile__label">
             E-mail
-            <input type="email" className="profile__input" defaultValue="vitaly_antrekot_v_klyare@glavpochtamp.example" />
+            <input type="email" name='email' className="profile__input" value={values.email} onChange={handleChange} />
           </label>
-          <button type="submit" className="profile__link">Редактировать</button>
-          <Link to='/' className="profile__link profile__link_type_logout">Выйти из аккаунта</Link>
+          <button type="submit" className="profile__link" onClick={handleSubmit}>Редактировать</button>
+          <button onClick={onLogout} className="profile__link profile__link_type_logout">Выйти из аккаунта</button>
         </form>
       </section>
     </>

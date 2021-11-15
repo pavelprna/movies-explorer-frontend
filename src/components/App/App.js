@@ -34,24 +34,36 @@ function App() {
         }
       })
       .catch(err => console.log(err))
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [history])
 
   useEffect(() => {
     tokenCheck();
   }, [tokenCheck])
 
-  const handleSignIn = ({ name, email, password }) => {
+  const handleSignUp = ({ name, email, password }) => {
     mainApi.createUser({ name, email, password })
-      .then(user => {
-        mainApi.signIn({ email: user.email, password })
-          .then(user => {
-            setCurrentUser(user);
-            setLoggedIn(true)
-            history.push('/movies');
-          })
-      })
+      .then(user => handleSignIn({ email: user.email, password }))
       .catch((err) => console.log(err))
+  }
+
+  const handleSignIn = ({ email, password }) => {
+    mainApi.signIn({ email, password })
+      .then(user => {
+        setCurrentUser(user);
+        setLoggedIn(true)
+        history.push('/movies');
+      })
+  }
+
+  const handleUserUpdate = ({ name, email }) => {
+    mainApi.updateUser({ name, email })
+      .then()
+  }
+
+  const handleLogout = () => {
+    mainApi.signOut();
+    history.push('/')
   }
 
   return (
@@ -67,13 +79,13 @@ function App() {
           <SavedMovies />
         </Route>
         <Route path='/profile'>
-          <Profile />
+          <Profile onSubmit={handleUserUpdate} onLogout={handleLogout} />
         </Route>
         <Route path='/signup'>
-          <Register onSubmit={handleSignIn} />
+          <Register onSubmit={handleSignUp} />
         </Route>
         <Route path='/signin'>
-          <Login />
+          <Login onSubmit={handleSignIn} />
         </Route>
         <Route path='*'>
           <NotFound />

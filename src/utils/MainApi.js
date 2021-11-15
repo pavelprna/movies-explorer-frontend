@@ -13,11 +13,11 @@ class MainApi extends Api {
     });
   }
 
-  updateUser({ name, email, password }) {
+  updateUser({ name, email }) {
     return this._request({
-      method: 'PUTCH',
+      method: 'PATCH',
       path: '/users/me',
-      body: { name, email, password },
+      body: { name, email },
     })
   }
 
@@ -34,6 +34,13 @@ class MainApi extends Api {
       path: '/signin',
       body: { email, password }
     });
+  }
+
+  signOut() {
+    return this._request({
+      method: 'POST',
+      path: '/signout',
+    })
   }
   
 }
