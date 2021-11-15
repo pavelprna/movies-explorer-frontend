@@ -1,9 +1,7 @@
 import './PageWithForm.css';
-import logo from '../../images/logo/logo.svg'
-import { useHistory } from 'react-router';
+import logo from '../../images/logo/logo.svg';
 
-function PageWithForm({ children, title, submitButtonText, bottomText }) {
-  const history = useHistory();
+function PageWithForm({ children, title, submitButtonText, bottomText, onSubmit }) {
 
   return (
     <section className="section page">
@@ -11,7 +9,7 @@ function PageWithForm({ children, title, submitButtonText, bottomText }) {
       <h1 className="page__title">{title}</h1>
       <form action="" className="form">
         {children}
-        <button onClick={() => history.push('/movies')} className="form__submit">{submitButtonText}</button>
+        <button onClick={onSubmit} className="form__submit">{submitButtonText}</button>
       </form>
       {bottomText}
     </section>

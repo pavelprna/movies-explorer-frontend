@@ -1,22 +1,8 @@
-class MoviesApi {
-  constructor({ baseUrl, headers, credentials }) {
-    this._baseUrl = baseUrl;
-    this._headers = headers;
-    this._credentials = credentials;
-  }
+import Api from "./Api";
 
-  _request({path, method, body}) {
-    return fetch(this._baseUrl + path, {
-      method,
-      headers: this._headers,
-      body,
-    })
-    .then(res => {
-      if (res.ok) {
-        return res.json();
-      }
-      return Promise.reject(`Ошибка ${res.status}: ${res.message}`);
-    });
+class MoviesApi extends Api {
+  constructor({ baseUrl, headers, credentials }) {
+    super({ baseUrl, headers, credentials })
   }
   
   getMovies() {
