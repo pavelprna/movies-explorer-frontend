@@ -1,6 +1,8 @@
-import { BrowserRouter, Route, Switch } from "react-router-dom";
+import { Route, Switch, useHistory, withRouter } from "react-router-dom";
+import { useState } from "react";
+import { currentUserContext } from "../../contexts/CurrentUserContext.js";
+import mainApi from "../../utils/MainApi.js";
 import Login from "../Login/Login.js";
-
 import Main from "../Main/Main.js";
 import Movies from "../Movies/Movies.js";
 import NotFound from "../NotFound/NotFound";
@@ -8,10 +10,24 @@ import Profile from "../Profile/Profile.js";
 import Register from "../Register/Register.js";
 import SavedMovies from "../SavedMovies/SavedMovies.js";
 
-
 function App() {
+  const [currentUser, setCurrentUser] = useState({});
+  const history = useHistory();
+
+  const handleSignIn = ({ name, email, password }) => {
+    mainApi.createUser({ name, email, password })
+      .then(user => {
+        mainApi.signIn({ email: user.email, password })
+          .then(user => {
+            setCurrentUser(user);
+            history.push('movies');
+          })
+      })
+      .catch((err, res) => console.log(err, res))
+  }
+
   return (
-    <BrowserRouter>
+    <currentUserContext.Provider value={currentUser}>
       <Switch>
         <Route exact path='/'>
           <Main />
@@ -26,7 +42,7 @@ function App() {
           <Profile />
         </Route>
         <Route path='/signup'>
-          <Register />
+          <Register onSubmit={handleSignIn} />
         </Route>
         <Route path='/signin'>
           <Login />
@@ -35,8 +51,8 @@ function App() {
           <NotFound />
         </Route>
       </Switch>
-    </BrowserRouter>
+    </currentUserContext.Provider>
   );
 }
 
-export default App;
+export default withRouter(App);

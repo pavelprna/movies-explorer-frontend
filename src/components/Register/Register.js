@@ -2,12 +2,9 @@ import { Link } from 'react-router-dom';
 import { useState } from 'react';
 import PageWithForm from '../PageWithForm/PageWithForm';
 import './Register.css';
-import mainApi from '../../utils/MainApi';
 
-function Register() {
-  const [values, setValues] = useState({})
-
-  console.log(process.env)
+function Register({ onSubmit }) {
+  const [values, setValues] = useState({});
 
   const handleChange = (e) => {
     const target = e.target;
@@ -18,12 +15,7 @@ function Register() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-
-    mainApi.createUser(values)
-    .then(user => {
-      mainApi.signIn({ email: user.email, password: values.password })
-    })
-    .catch((err, res) => console.log(err, res))
+    onSubmit(values);
   }
 
   return (
