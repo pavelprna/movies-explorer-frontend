@@ -43,10 +43,31 @@ class MainApi extends Api {
     })
   }
   
+  getMovies() {
+    return this._request({
+      method: 'GET',
+      path: '/movies',
+    })
+  }
+
+  saveMovie(movie) {
+    return this._request({
+      method: 'POST',
+      path: '/movies',
+      body: movie,
+    })
+  }
+
+  removeMovie(id) {
+    return this._request({
+      method: 'DELETE',
+      path: `/movies/${id}`
+    })
+  }
 }
 
 const mainApi = new MainApi({
-  baseUrl: process.env.REACT_APP_API_URL,
+  baseUrl: process.env.REACT_APP_API_URL || 'http://locallhost:3010',
   headers: {
     'Content-Type': 'application/json'
   },

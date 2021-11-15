@@ -7,7 +7,7 @@ import Navigation from '../Navigation/Navigation';
 import SearchForm from '../SearchForm/SearchForm';
 import './SavedMovies.css';
 
-function SavedMovies() {
+function SavedMovies({ movies, onRemove }) {
   return (
     <>
       <Header>
@@ -17,9 +17,9 @@ function SavedMovies() {
         <FilterCheckbox />
       </SearchForm>
       <MoviesCardList>
-        {/* <MoviesCard movieImage={movieTwo} movieTitle='Киноальманах «100 лет дизайна»' movieDuration='1ч 17м' />
-        <MoviesCard movieImage={movieThree} movieTitle='В погоне за Бенкси' movieDuration='1ч 17м' />
-        <MoviesCard movieImage={movieFour} movieTitle='Баския: Взрыв реальности' movieDuration='1ч 17м' /> */}
+        {
+          movies.map((movie) => <MoviesCard key={movie._id} movie={movie} onRemove={onRemove} isSaved={true} />)
+        }
       </MoviesCardList>
       <Footer />
     </>

@@ -7,12 +7,11 @@ import SearchForm from '../SearchForm/SearchForm';
 import FilterCheckbox from '../FilterCheckbox/FilterCheckbox';
 import MoviesCard from '../MoviesCard/MoviesCard';
 import Navigation from '../Navigation/Navigation';
-
-import moviesApi from '../../utils/MoviesApi';
 import { useCallback, useEffect, useState } from 'react';
+import { filterMovie } from '../../utils/utils';
 
-function Movies() {
-  const [movies, setMovies] = useState([]);
+function Movies({ onSave, onRemove, movies }) {
+  const [result, setResult] = useState([]);
   const [searchString, setSearchString] = useState('');
   const [isLoaded, setIsLoaded] = useState(true);
   const [isFound, setIsFound] = useState(true);
@@ -20,26 +19,16 @@ function Movies() {
   const handleSubmit = useCallback(() => {
     setIsLoaded(false);
 
-    moviesApi.getMovies()
-      .then(list => {
-        const findedMovies = list.filter((movie) => filterMovie(movie, searchString));
-        setIsFound(findedMovies.length);
-        setMovies(findedMovies);
-        setIsLoaded(true);
-      })
-      .catch(err => console.log(err));
-  }, [searchString]);
+    const findedMovies = movies.filter((movie) => filterMovie(movie, searchString));
+    setIsFound(findedMovies.length);
+    setResult(findedMovies);
+    setIsLoaded(true);
+
+  }, [movies, searchString]);
 
   useEffect(() => {
 
   }, [handleSubmit])
-
-  const filterMovie = (movie, value) => {
-    const lowerCaseNameRU = movie.nameRU?.toLowerCase();
-    const lowerCaseNameEN = movie.nameEN?.toLowerCase();
-
-    return (lowerCaseNameRU?.includes(value) || lowerCaseNameEN?.includes(value)) ? true : false;
-  }
 
   const handleFormChange = (value) => {
     setSearchString(value)
@@ -57,7 +46,13 @@ function Movies() {
         ? (
           isFound
             ? <MoviesCardList>
-              {movies.map(movie => <MoviesCard key={movie.id} movieData={movie} />)}
+              {result.map(movie => <MoviesCard
+                key={movie.movieId.toString()}
+                movie={movie} 
+                onSave={onSave}
+                onRemove={onRemove}
+                isSaved={localStorage.getItem('savedMovies').split(',').includes(String(movie.movieId))}
+              />)}
             </MoviesCardList>
             : 'Ничего не найдено'
         )
