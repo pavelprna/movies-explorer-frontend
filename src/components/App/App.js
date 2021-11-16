@@ -11,9 +11,10 @@ import Register from "../Register/Register.js";
 import SavedMovies from "../SavedMovies/SavedMovies.js";
 import moviesApi from "../../utils/MoviesApi.js";
 import { parseMovies } from "../../utils/utils.js";
+import ProtectedRoute from "../ProtectedRoute/ProtectedRoute.js";
 
 function App() {
-  const [currentUser, setCurrentUser] = useState({ _id: '', name: '', email: ''});
+  const [currentUser, setCurrentUser] = useState({ _id: '', name: '', email: '' });
   const [loggedIn, setLoggedIn] = useState(false);
   const [initialMovies, setInitialMovies] = useState([]);
   const [mainMovies, setMainMovies] = useState([]);
@@ -32,6 +33,7 @@ function App() {
           setSavedMovies(savedList);
           localStorage.setItem('savedMovies', savedList.map((movie) => movie.movieId))
         })
+        .catch(err => console.log(err))
     }
   }, [loggedIn]);
 
@@ -67,18 +69,27 @@ function App() {
       .then(user => {
         setCurrentUser(user);
         setLoggedIn(true)
+        console.log(currentUser)
         history.push('/movies');
       })
+      .catch(err => console.log(err))
   }
 
   const handleUserUpdate = ({ name, email }) => {
     mainApi.updateUser({ name, email })
-      .then()
+      .then(user => setCurrentUser(user))
+      .catch(err => console.log(err))
   }
 
   const handleLogout = () => {
-    mainApi.signOut();
-    history.push('/')
+    mainApi.signOut()
+      .then(() => {
+        setLoggedIn(false)
+        setCurrentUser({ _id: '', name: '', email: '' })
+        setSavedMovies([])
+        history.push('/')
+      })
+      .catch(err => console.log(err))
   }
 
   // MOVIES
@@ -90,6 +101,7 @@ function App() {
         const savedList = localStorage.getItem('savedMovies').split();
         localStorage.setItem('savedMovies', [...savedList, movie.movieId.toString()])
       })
+      .catch(err => console.log(err))
   }
 
   const handleRemoveMovie = (movie) => {
@@ -109,15 +121,29 @@ function App() {
         <Route exact path='/'>
           <Main />
         </Route>
-        <Route path='/movies'>
-          <Movies movies={initialMovies} onSave={handleSaveMovie} savedMovies={savedMovies} onRemove={handleRemoveMovie} />
-        </Route>
-        <Route path='/saved-movies'>
-          <SavedMovies movies={savedMovies} onRemove={handleRemoveMovie} />
-        </Route>
-        <Route path='/profile'>
-          <Profile onSubmit={handleUserUpdate} onLogout={handleLogout} />
-        </Route>
+        <ProtectedRoute
+          path='/movies'
+          loggedIn={loggedIn}
+          movies={initialMovies}
+          onSave={handleSaveMovie}
+          savedMovies={savedMovies}
+          onRemove={handleRemoveMovie}
+          component={Movies}
+        />
+        <ProtectedRoute
+          path='/saved-movies'
+          loggedIn={loggedIn}
+          movies={savedMovies}
+          onRemove={handleRemoveMovie}
+          component={SavedMovies}
+        />
+        <ProtectedRoute
+          path='/profile'
+          loggedIn={loggedIn}
+          onSubmit={handleUserUpdate}
+          onLogout={handleLogout}
+          component={Profile}
+        />
         <Route path='/signup'>
           <Register onSubmit={handleSignUp} />
         </Route>
