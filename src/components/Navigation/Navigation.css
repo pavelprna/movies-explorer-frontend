@@ -18,7 +18,7 @@
 
 .burger {
   display: block;
-  background: #fff;
+  background: none;
   width: 40px;
   height: 38px;
   padding: 9px;

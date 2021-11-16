@@ -1,4 +1,4 @@
-import { Route, Switch, useHistory, useLocation, withRouter } from "react-router-dom";
+import { Route, Switch, useHistory, withRouter } from "react-router-dom";
 import { useCallback, useEffect, useState } from "react";
 import { currentUserContext } from "../../contexts/CurrentUserContext.js";
 import mainApi from "../../utils/MainApi.js";
@@ -21,9 +21,7 @@ function App() {
   const [tooltipMessage, setTooltipMessage] = useState('');
   const [isToooltipOpened, setIsTooltipOpened] = useState(true);
   const [initialMovies, setInitialMovies] = useState([]);
-  const [mainMovies, setMainMovies] = useState([]);
   const [savedMovies, setSavedMovies] = useState([]);
-  const location = useLocation();
   const history = useHistory();
 
   useEffect(() => {
@@ -32,14 +30,13 @@ function App() {
         .then(([movies, mainMovies]) => {
           const parsedMovies = parseMovies(movies);
           setInitialMovies(parsedMovies);
-          setMainMovies(mainMovies);
           const savedList = mainMovies.filter(movie => (movie.owner === currentUser._id))
           setSavedMovies(savedList);
           localStorage.setItem('savedMovies', savedList.map((movie) => movie.movieId))
         })
         .catch(err => console.log(err))
     }
-  }, [loggedIn]);
+  }, [loggedIn, currentUser._id]);
 
   // USER
 
@@ -159,7 +156,7 @@ function App() {
     <currentUserContext.Provider value={currentUser}>
       <Switch>
         <Route exact path='/'>
-          <Main />
+          <Main loggedIn={loggedIn} />
         </Route>
         <ProtectedRoute
           path='/movies'

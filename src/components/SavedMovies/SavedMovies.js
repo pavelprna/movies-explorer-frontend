@@ -3,16 +3,13 @@ import Footer from '../Footer/Footer';
 import Header from '../Header/Header';
 import MoviesCard from '../MoviesCard/MoviesCard';
 import MoviesCardList from '../MoviesCardList/MoviesCardList';
-import Navigation from '../Navigation/Navigation';
 import SearchForm from '../SearchForm/SearchForm';
 import './SavedMovies.css';
 
-function SavedMovies({ movies, onRemove }) {
+function SavedMovies({ movies, onRemove, loggedIn }) {
   return (
     <>
-      <Header>
-        <Navigation />
-      </Header>
+      <Header loggedIn={loggedIn} />
       <SearchForm>
         <FilterCheckbox />
       </SearchForm>

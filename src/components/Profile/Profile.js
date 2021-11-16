@@ -1,10 +1,9 @@
 import { useContext, useEffect, useState } from 'react/cjs/react.development';
 import { currentUserContext } from '../../contexts/CurrentUserContext';
 import Header from '../Header/Header';
-import Navigation from '../Navigation/Navigation';
 import './Profile.css';
 
-function Profile({ onSubmit, onLogout }) {
+function Profile({ onSubmit, onLogout, loggedIn}) {
   const currentUser = useContext(currentUserContext);
   const [values, setValues] = useState({ name: '', email: '' });
 
@@ -29,9 +28,7 @@ function Profile({ onSubmit, onLogout }) {
 
   return (
     <>
-      <Header>
-        <Navigation />
-      </Header>
+      <Header loggedIn={loggedIn} />
       <section className="profile">
         <h1 className="profile__title">Привет, {currentUser.name}!</h1>
         <form className="profile__form">

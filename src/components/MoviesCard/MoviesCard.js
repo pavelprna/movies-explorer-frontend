@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { formatDuration } from '../../utils/utils';
 import './MoviesCard.css';
 
 function MoviesCard({ movie, onSave, onRemove, isSaved, onClick }) {
@@ -24,7 +25,7 @@ function MoviesCard({ movie, onSave, onRemove, isSaved, onClick }) {
       <article className="movies-card">
         <img onClick={handleClick} src={image} alt={nameRU} className="movies-card__image" />
         <h2 className="movies-card__title">{nameRU}</h2>
-        <p className="movies-card__duration">{duration}</p>
+        <p className="movies-card__duration">{formatDuration(duration)}</p>
         {
           saved
             ? <button onClick={handleRemove} className="movies-card__badge movies-card__saved-badge"></button>

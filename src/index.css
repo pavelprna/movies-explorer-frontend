@@ -8,6 +8,8 @@
 #root {
   font-family: Inter, Helvetica, Arial, sans-serif;
   min-height: 100vh;
+  display: flex;
+  flex-direction: column;
 }
 
 .section {
@@ -16,6 +18,7 @@
 
 .section__container {
   max-width: 1140px;
+  width: 100%;
   margin: 0 auto;
 }
 
