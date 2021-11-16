@@ -12,10 +12,14 @@ import SavedMovies from "../SavedMovies/SavedMovies.js";
 import moviesApi from "../../utils/MoviesApi.js";
 import { parseMovies } from "../../utils/utils.js";
 import ProtectedRoute from "../ProtectedRoute/ProtectedRoute.js";
+import InfoTooltip from "../InfoTooltip/InfoTooltip.js";
 
 function App() {
   const [currentUser, setCurrentUser] = useState({ _id: '', name: '', email: '' });
   const [loggedIn, setLoggedIn] = useState(false);
+  const [isSuccess, setIsSuccess] = useState(true);
+  const [tooltipMessage, setTooltipMessage] = useState('');
+  const [isToooltipOpened, setIsTooltipOpened] = useState(true);
   const [initialMovies, setInitialMovies] = useState([]);
   const [mainMovies, setMainMovies] = useState([]);
   const [savedMovies, setSavedMovies] = useState([]);
@@ -44,11 +48,8 @@ function App() {
       .then((user) => {
         setCurrentUser(user)
         setLoggedIn(true)
-        if (location.pathname === '/signin' || location.pathname === '/signup') {
           history.push('/movies');
-        } else {
-          history.push(location.pathname);
-        }
+        
       })
       .catch(err => console.log(err))
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -68,7 +69,11 @@ function App() {
     mainApi.signIn({ email, password })
       .then(res => {
         setLoggedIn(true)
-        history.push('/movies');
+        tokenCheck();
+        openTooltip({
+          success: true,
+          message: res.message,
+        })
       })
       .catch(err => console.log(err))
   }
@@ -113,6 +118,43 @@ function App() {
       .catch(err => console.log(err))
   }
 
+  // TOOLTIP
+
+  const openTooltip = ({ success, message }) => {
+    setIsSuccess(success);
+    setTooltipMessage(message);
+    setIsTooltipOpened(true);
+    setTimeout(handleCloseTooltip, 2000)
+  }
+
+  const handleCloseTooltip = () => {
+    setIsTooltipOpened(false);
+  }
+
+  useEffect(() => {
+    const closeByEscape = (e) => {
+      if (e.key === "Escape") {
+        handleCloseTooltip();
+      }
+    };
+
+    document.addEventListener("keydown", closeByEscape);
+
+    return () => document.removeEventListener("keydown", closeByEscape);
+  }, []);
+
+  useEffect(() => {
+    const closeByClick = (e) => {
+      if (e.target.classList.contains("popup_opened")) {
+        handleCloseTooltip();
+      }
+    };
+
+    document.addEventListener("mousedown", closeByClick);
+
+    return () => document.removeEventListener("mousedown", closeByClick);
+  }, []);
+
   return (
     <currentUserContext.Provider value={currentUser}>
       <Switch>
@@ -152,7 +194,7 @@ function App() {
           <NotFound />
         </Route>
       </Switch>
-      
+      <InfoTooltip isOpen={isToooltipOpened} message={tooltipMessage} success={isSuccess} onClose={handleCloseTooltip} />
     </currentUserContext.Provider>
   );
 }
