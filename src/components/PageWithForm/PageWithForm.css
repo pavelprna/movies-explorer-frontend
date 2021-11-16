@@ -91,10 +91,18 @@
   color: #fff;
   border-radius: 3px;
   transition: opacity 300ms;
+  cursor: pointer;
+  transition: background 500ms, color 500ms;
 }
 
 .form__submit:hover {
   opacity: 0.8;
+}
+
+.form__submit_disabled {
+  background: #f9f9f9;
+  color: #000;
+  cursor: unset;
 }
 
 @media (min-width: 768px) {

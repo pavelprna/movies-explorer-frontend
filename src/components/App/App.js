@@ -66,10 +66,8 @@ function App() {
 
   const handleSignIn = ({ email, password }) => {
     mainApi.signIn({ email, password })
-      .then(user => {
-        setCurrentUser(user);
+      .then(res => {
         setLoggedIn(true)
-        console.log(currentUser)
         history.push('/movies');
       })
       .catch(err => console.log(err))
@@ -154,6 +152,7 @@ function App() {
           <NotFound />
         </Route>
       </Switch>
+      
     </currentUserContext.Provider>
   );
 }
