@@ -1,4 +1,4 @@
-import { Route, Switch, useHistory, withRouter } from "react-router-dom";
+import { Route, Switch, useHistory, withRouter, useLocation } from "react-router-dom";
 import { useCallback, useEffect, useState } from "react";
 import { currentUserContext } from "../../contexts/CurrentUserContext.js";
 import mainApi from "../../utils/MainApi.js";
@@ -8,7 +8,6 @@ import Movies from "../Movies/Movies.js";
 import NotFound from "../NotFound/NotFound";
 import Profile from "../Profile/Profile.js";
 import Register from "../Register/Register.js";
-import SavedMovies from "../SavedMovies/SavedMovies.js";
 import moviesApi from "../../utils/MoviesApi.js";
 import { parseMovies } from "../../utils/utils.js";
 import ProtectedRoute from "../ProtectedRoute/ProtectedRoute.js";
@@ -19,10 +18,11 @@ function App() {
   const [loggedIn, setLoggedIn] = useState(false);
   const [isSuccess, setIsSuccess] = useState(true);
   const [tooltipMessage, setTooltipMessage] = useState('');
-  const [isToooltipOpened, setIsTooltipOpened] = useState(true);
+  const [isToooltipOpened, setIsTooltipOpened] = useState(false);
   const [initialMovies, setInitialMovies] = useState([]);
   const [savedMovies, setSavedMovies] = useState([]);
   const history = useHistory();
+  const location = useLocation();
 
   useEffect(() => {
     if (loggedIn) {
@@ -45,8 +45,11 @@ function App() {
       .then((user) => {
         setCurrentUser(user)
         setLoggedIn(true)
+        if (location.pathname === '/signin' || location.pathname === 'signup') {
           history.push('/movies');
-        
+        } else {
+          history.push(location.pathname)
+        }
       })
       .catch(err => console.log(err))
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -115,6 +118,13 @@ function App() {
       .catch(err => console.log(err))
   }
 
+  const handleEmptySearch = () => {
+    openTooltip({
+      success: false,
+      message: 'Нужно ввести ключевое слово',
+    })
+  }
+
   // TOOLTIP
 
   const openTooltip = ({ success, message }) => {
@@ -163,16 +173,18 @@ function App() {
           loggedIn={loggedIn}
           movies={initialMovies}
           onSave={handleSaveMovie}
-          savedMovies={savedMovies}
           onRemove={handleRemoveMovie}
+          onEmptySearch={handleEmptySearch}
           component={Movies}
-        />
+          />
         <ProtectedRoute
           path='/saved-movies'
           loggedIn={loggedIn}
+          savedMovies={savedMovies}
           movies={savedMovies}
           onRemove={handleRemoveMovie}
-          component={SavedMovies}
+          onEmptySearch={handleEmptySearch}
+          component={Movies}
         />
         <ProtectedRoute
           path='/profile'

@@ -1,13 +1,19 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Link, NavLink } from "react-router-dom";
+import { useLocation } from "react-router";
 import './Navigation.css';
 
 const Navigation = () => {
   const [isOpened, setIsOpened] = useState(false);
+  const location = useLocation()
 
   const handleBurgerClick = () => {
     setIsOpened(!isOpened);
   }
+
+  useEffect(() => {
+    setIsOpened(false)
+  }, [location.pathname])
 
   return (
     <nav className={`navigation ${isOpened ? 'navigation_opened' : ''}`}>

@@ -5,36 +5,51 @@ import MoviesCardList from '../MoviesCardList/MoviesCardList';
 import Preloader from '../Preloader/Preloader';
 import SearchForm from '../SearchForm/SearchForm';
 import FilterCheckbox from '../FilterCheckbox/FilterCheckbox';
-import MoviesCard from '../MoviesCard/MoviesCard';
 import { useState } from 'react';
 import { filterMovie } from '../../utils/utils';
 import { useEffect } from 'react/cjs/react.development';
+import { useLocation } from 'react-router';
 
-function Movies({ onSave, onRemove, movies, loggedIn }) {
-  const [result, setResult] = useState([]);
+function Movies({ onSave, onRemove, movies, loggedIn, savedMovies, onEmptySearch }) {
+  const [result, setResult] = useState(savedMovies || []);
   const [isLoaded, setIsLoaded] = useState(true);
   const [isFound, setIsFound] = useState(true);
   const [values, setValues] = useState({ title: '', short: false })
+  const location = useLocation()
 
   useEffect(() => {
-    if (values.title) {
+    if (location.pathname === '/saved-movies') {
       handleSubmit()
     }
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [values.short])
 
-  const handleSubmit = () => {
-    if (!values.title) {
-      return;
-    }
-    setIsLoaded(false);
+  useEffect(() => {
+    setValues({ title: '', short: false })
+    setIsFound(true)
+  }, [location.pathname])
+  
+  useEffect(() => {
+    setResult(savedMovies || [])
+  }, [savedMovies])
 
+  const handleSubmit = () => {
+    setIsLoaded(false);
+    
     const findedMovies = movies.filter((movie) => filterMovie(movie, values.title, values.short));
     setIsFound(findedMovies.length);
     setResult(findedMovies);
     setTimeout(() => setIsLoaded(true), 1200);
-
+    
   };
+  
+  const handleButtonClick = () => {
+    if (values.title) {
+      handleSubmit();
+    } else {
+      onEmptySearch()
+    }
+  }
 
   const handleCheckboxClick = (e) => {
     setValues({ ...values, short: e.target.checked })
@@ -47,28 +62,18 @@ function Movies({ onSave, onRemove, movies, loggedIn }) {
   return (
     <>
       <Header loggedIn={loggedIn} />
-      <SearchForm onSubmit={handleSubmit} onChange={handleFormChange}>
-        <FilterCheckbox onClick={handleCheckboxClick} />
+      <SearchForm onSubmit={handleButtonClick} onChange={handleFormChange} value={values.title}>
+        <FilterCheckbox onClick={handleCheckboxClick} value={values.short} />
       </SearchForm>
       <section className="movies section__container">
-      {isLoaded
-        ? (
-          isFound
-            ? <MoviesCardList>
-              {result.map(movie => <MoviesCard
-                key={movie.movieId.toString()}
-                movie={movie}
-                onSave={onSave}
-                onRemove={onRemove}
-                isSaved={localStorage.getItem('savedMovies').split(',').includes(String(movie.movieId))}
-              />)}
-            </MoviesCardList>
-            : <section className="movies section__container movies__not-found">
-              <p className="movies__not-found-text">Ничего не найдено</p>
-            </section>
-        )
-        : <Preloader />}
-        </section>
+        {isLoaded
+          ? (
+            isFound
+              ? <MoviesCardList movies={result} onSave={onSave} onRemove={onRemove} />
+              : <p className="movies__not-found-text">Ничего не найдено</p>
+          )
+          : <Preloader />}
+      </section>
       <Footer />
     </>
   )

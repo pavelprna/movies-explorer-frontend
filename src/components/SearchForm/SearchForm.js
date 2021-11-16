@@ -1,6 +1,6 @@
 import './SearchForm.css';
 
-function SearchForm({ children, onSubmit, onChange, values }) {
+function SearchForm({ children, onSubmit, onChange, value }) {
   const handleChange = (e) => {
     onChange(e.target.value.toLowerCase());
   }
@@ -14,7 +14,7 @@ function SearchForm({ children, onSubmit, onChange, values }) {
     <section className="search section">
       <div className="section__container search__container">
         <form className="search-form" required>
-          <input type="text" name="title" onChange={handleChange} className="search-form__input" placeholder="Фильм" />
+          <input type="text" name="title" value={value} onChange={handleChange} className="search-form__input" placeholder="Фильм" />
           <button type="submit" onClick={handleSubmit} className="search-form__button" />
         </form>
         {children}
