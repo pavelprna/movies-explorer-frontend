@@ -15,8 +15,6 @@ function Login({ onSubmit }) {
     !isButtonDisabled && onSubmit(values);
   }
 
-  console.log(patterns.email)
-
   return (
     <PageWithForm
       title='Рады видеть!'

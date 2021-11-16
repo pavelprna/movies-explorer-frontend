@@ -12,7 +12,6 @@ export function useFormValidation(inputValues) {
     setValues({ ...values, [name]: value });
     setErrors({ ...errors, [name]: input.validationMessage });
 
-    console.log(input.closest('.form').checkValidity())
     setIsValid(input.closest('form').checkValidity());
   };
 
