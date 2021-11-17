@@ -1,4 +1,4 @@
-import { useContext, useEffect, useState } from 'react/cjs/react.development';
+import { useContext, useEffect, useState } from 'react';
 import { currentUserContext } from '../../contexts/CurrentUserContext';
 import Header from '../Header/Header';
 import './Profile.css';

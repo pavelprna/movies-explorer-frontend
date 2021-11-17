@@ -5,9 +5,8 @@ import MoviesCardList from '../MoviesCardList/MoviesCardList';
 import Preloader from '../Preloader/Preloader';
 import SearchForm from '../SearchForm/SearchForm';
 import FilterCheckbox from '../FilterCheckbox/FilterCheckbox';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { filterMovie } from '../../utils/utils';
-import { useEffect } from 'react/cjs/react.development';
 import { useLocation } from 'react-router';
 
 function Movies({ onSave, onRemove, movies, loggedIn, savedMovies, onEmptySearch }) {
