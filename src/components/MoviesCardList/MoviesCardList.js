@@ -58,7 +58,7 @@ function MoviesCardList({ movies, onSave, onRemove }) {
       </ul>
       {
         location.pathname === '/movies' && movies.length > cardsToShow.length &&
-        <button className="app__button card-list__more-btn" onClick={handleShowMoreCards} type="button">Ещё</button>
+        <button className="movies__more-button" onClick={handleShowMoreCards} type="button">Ещё</button>
       }
     </>
   );
