@@ -1,4 +1,5 @@
 import Api from "./Api";
+import { API_URL } from "./constants";
 
 class MainApi extends Api {
   constructor({ baseUrl, headers, credentials }) {
@@ -67,7 +68,7 @@ class MainApi extends Api {
 }
 
 const mainApi = new MainApi({
-  baseUrl: process.env.REACT_APP_API_URL || 'http://locallhost:3010',
+  baseUrl: API_URL || 'http://locallhost:3010',
   headers: {
     'Content-Type': 'application/json'
   },

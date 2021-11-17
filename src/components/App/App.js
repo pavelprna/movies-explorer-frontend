@@ -84,9 +84,11 @@ function App() {
       .catch(err => console.log(err))
   }
 
-  const handleLogout = () => {
+  const handleLogout = (e) => {
+    e.preventDefault();
     mainApi.signOut()
       .then(() => {
+        console.log('LOGOUT')
         setLoggedIn(false)
         setCurrentUser({ _id: '', name: '', email: '' })
         setSavedMovies([])

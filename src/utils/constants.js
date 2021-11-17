@@ -1,4 +1,5 @@
 export const MOVIE_API_URL = 'https://api.nomoreparties.co';
+export const API_URL = 'https://api.prna.nomoredomains.monster';
 export const SHORT_FILM_DURATION = 40;
 
 export const patterns = {
