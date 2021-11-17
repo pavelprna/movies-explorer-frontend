@@ -3,4 +3,9 @@
 # movies-explorer-frontend
 frontend дипломного проекта
 
+URL: https://prna.nomoredomains.monster
+API: https://api.prna.nomoredomains.monster
+Figma: [link](https://www.figma.com/file/lN1HF6BT7Bq5AxWuMgh9rj/Diploma-(Copy)?node-id=932%3A4182)
+
+public IP: [62.84.120.83](http://62.84.120.83)
 
