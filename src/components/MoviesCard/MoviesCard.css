@@ -38,6 +38,8 @@
 
 .movies-card__badge {
   position: absolute;
+  width: 21px;
+  height: 21px;
   right: 10px;
   top: 10px;
   margin: 0;
