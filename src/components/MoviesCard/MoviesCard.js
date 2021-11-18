@@ -1,10 +1,12 @@
 import { useState } from 'react';
+import { useLocation } from 'react-router';
 import { formatDuration } from '../../utils/utils';
 import './MoviesCard.css';
 
 function MoviesCard({ movie, onSave, onRemove, isSaved }) {
   const { image, nameRU, duration, trailer } = movie;
   const [saved, setSaved] = useState(isSaved);
+  const location = useLocation()
 
   const handleSave = () => {
     onSave(movie)
@@ -25,7 +27,9 @@ function MoviesCard({ movie, onSave, onRemove, isSaved }) {
         <h2 className="movies-card__title">{nameRU}</h2>
         <p className="movies-card__duration">{formatDuration(duration)}</p>
         {
-          saved
+          location.pathname === '/saved-movies' 
+          ? <button onClick={handleRemove} className="movies-card__badge movies-card__remove-badge"></button>
+          : saved
             ? <button onClick={handleRemove} className="movies-card__badge movies-card__saved-badge"></button>
             : <button onClick={handleSave} className="movies-card__badge movies-card__save-badge">Сохранить</button>
         }
