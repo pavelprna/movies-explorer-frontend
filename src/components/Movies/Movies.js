@@ -17,8 +17,8 @@ function Movies({ onSave, onRemove, movies, loggedIn, savedMovies, onEmptySearch
   const location = useLocation()
 
   useEffect(() => {
-    if (location.pathname === '/saved-movies') {
-      handleSubmit()
+    if(values.title) {
+      handleSubmit();
     }
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [values.short])
