@@ -80,7 +80,13 @@ function App() {
 
   const handleUserUpdate = ({ name, email }) => {
     mainApi.updateUser({ name, email })
-      .then(user => setCurrentUser(user))
+      .then(user => {
+        setCurrentUser(user);
+        openTooltip({
+          success: true,
+          message: 'Профиль успешно изменен'
+        })
+      })
       .catch(err => console.log(err))
   }
 

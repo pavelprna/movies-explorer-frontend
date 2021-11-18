@@ -1,29 +1,21 @@
 import { useContext, useEffect, useState } from 'react';
+import { useFormValidation } from '../../hooks/useFormValidation';
 import { currentUserContext } from '../../contexts/CurrentUserContext';
+import { patterns } from '../../utils/constants';
 import Header from '../Header/Header';
 import './Profile.css';
 
-function Profile({ onSubmit, onLogout, loggedIn}) {
+function Profile({ onSubmit, onLogout, loggedIn }) {
   const currentUser = useContext(currentUserContext);
-  const [values, setValues] = useState({ name: '', email: '' });
+  const { values, errors, isValid, handleChange } = useFormValidation({
+    name: currentUser.name,
+    email: currentUser.email
+  });
+  const isButtonDisabled = currentUser.name === values.name || values.name === '' || values.email === '' || !isValid;
 
-  useEffect(() => {
-    setValues({ name: currentUser.name || '', email: currentUser.email || '' })
-  }, [currentUser])
-
-  const handleChange = (e) => {
-    const target = e.target;
-    const name = target.name;
-    const value = target.value;
-    setValues({
-      ...values,
-      [name]: value,
-    })
-  }
-
-  const handleSubmit = (e) => {
+  function handleSubmit(e) {
     e.preventDefault();
-    onSubmit(values)
+    !isButtonDisabled && onSubmit(values);
   }
 
   return (
@@ -34,13 +26,27 @@ function Profile({ onSubmit, onLogout, loggedIn}) {
         <form className="profile__form">
           <label htmlFor="" className="profile__label">
             Имя
-            <input type="text" name='name' className="profile__input" value={values.name} onChange={handleChange} />
+            <input type="text"
+              name='name'
+              className="profile__input"
+              value={values.name}
+              onChange={handleChange}
+              pattern={patterns.name}
+              required />
           </label>
           <label htmlFor="" className="profile__label">
             E-mail
-            <input type="email" name='email' className="profile__input" value={values.email} onChange={handleChange} />
+            <input type="email"
+              name='email'
+              className="profile__input"
+              value={values.email}
+              onChange={handleChange}
+              pattern={patterns.email}
+              required />
           </label>
-          <button type="submit" className="profile__link" onClick={handleSubmit}>Редактировать</button>
+          {errors.name ? <span className="profile__error-message">Ошибка имени: {errors.name}</span> : ''}
+          {errors.email ? <span className="profile__error-message">Ошибка email: {errors.email}</span> : ''}
+          <button onClick={handleSubmit} className={`profile__link ${isButtonDisabled ? 'profile__link_disabled' : ''}`}>Редактировать</button>
           <button onClick={onLogout} className="profile__link profile__link_type_logout">Выйти из аккаунта</button>
         </form>
       </section>
