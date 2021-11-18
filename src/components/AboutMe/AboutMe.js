@@ -3,7 +3,7 @@ import './AboutMe.css';
 
 function AboutMe(props) {
   return (
-    <section className="section about-me">
+    <section id="#about-me" className="section about-me">
       <div className="section__container">
       <h2 className="section__title about-me__title">Студент</h2>
       <article className="about-me__card card">
