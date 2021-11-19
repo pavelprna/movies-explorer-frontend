@@ -11,7 +11,7 @@ function NotFound() {
         <p className="not-found__message">Страница не найдена</p>
       </div>
       <nav className="not-found__nav">
-        <button onClick={() => history.goBack()} className="not-found__link">Назад</button>
+        <button onClick={() => history.go(-2)} className="not-found__link">Назад</button>
       </nav>
     </section>
   )

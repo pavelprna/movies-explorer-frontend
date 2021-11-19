@@ -94,7 +94,6 @@ function App() {
     e.preventDefault();
     mainApi.signOut()
       .then(() => {
-        console.log('LOGOUT')
         setLoggedIn(false)
         setCurrentUser({ _id: '', name: '', email: '' })
         setSavedMovies([])
@@ -209,7 +208,6 @@ function App() {
         </Route>
         <Route path='*'>
           <NotFound />
-          {console.log(history)}
         </Route>
       </Switch>
       <InfoTooltip isOpen={isToooltipOpened} message={tooltipMessage} success={isSuccess} onClose={handleCloseTooltip} />
