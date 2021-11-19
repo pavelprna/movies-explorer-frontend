@@ -45,7 +45,7 @@ function App() {
       .then((user) => {
         setCurrentUser(user)
         setLoggedIn(true)
-        if (location.pathname === '/signin' || location.pathname === 'signup') {
+        if (location.pathname === '/signin' || location.pathname === '/signup') {
           history.push('/movies');
         } else {
           history.push(location.pathname)
@@ -209,6 +209,7 @@ function App() {
         </Route>
         <Route path='*'>
           <NotFound />
+          {console.log(history)}
         </Route>
       </Switch>
       <InfoTooltip isOpen={isToooltipOpened} message={tooltipMessage} success={isSuccess} onClose={handleCloseTooltip} />
