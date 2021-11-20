@@ -11,7 +11,7 @@ function Profile({ onSubmit, onLogout, loggedIn }) {
     name: currentUser.name,
     email: currentUser.email
   });
-  const isButtonDisabled = currentUser.name === values.name || values.name === '' || values.email === '' || !isValid;
+  const isButtonDisabled = (currentUser.name === values.name && currentUser.email === values.email) || values.name === '' || values.email === '' || !isValid;
 
   function handleSubmit(e) {
     e.preventDefault();

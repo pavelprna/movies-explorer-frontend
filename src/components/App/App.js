@@ -40,6 +40,8 @@ function App() {
 
   // USER
 
+  console.log(location.pathname);
+
   const tokenCheck = useCallback(() => {
     mainApi.getUser()
       .then((user) => {
@@ -48,7 +50,7 @@ function App() {
         if (location.pathname === '/signin' || location.pathname === '/signup') {
           history.push('/movies');
         } else {
-          history.push(location.pathname)
+          history.push(location.pathname);
         }
       })
       .catch(err => console.log(err))
@@ -68,12 +70,11 @@ function App() {
   const handleSignIn = ({ email, password }) => {
     mainApi.signIn({ email, password })
       .then(res => {
-        setLoggedIn(true)
         tokenCheck();
         openTooltip({
           success: true,
           message: res.message,
-        })
+        });
       })
       .catch(err => console.log(err))
   }
