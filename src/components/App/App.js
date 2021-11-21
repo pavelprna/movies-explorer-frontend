@@ -39,7 +39,6 @@ function App() {
   }, [loggedIn, currentUser._id]);
 
   // USER
-  console.log(location.pathname)
   
   const tokenCheck = useCallback(() => {
     mainApi.getUser()
@@ -47,10 +46,8 @@ function App() {
       setCurrentUser(user)
       setLoggedIn(true)
       if (location.pathname === '/signin' || location.pathname === '/signup') {
-        console.log('ok', location.pathname)
         history.push('/movies');
       } else {
-          console.log('no', location.pathname)
           history.push(location.pathname);
         }
       })
