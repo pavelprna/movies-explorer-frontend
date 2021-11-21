@@ -39,15 +39,15 @@ function App() {
   }, [loggedIn, currentUser._id]);
 
   // USER
-  
+
   const tokenCheck = useCallback(() => {
     mainApi.getUser()
-    .then((user) => {
-      setCurrentUser(user)
-      setLoggedIn(true)
-      if (location.pathname === '/signin' || location.pathname === '/signup') {
-        history.push('/movies');
-      } else {
+      .then((user) => {
+        setCurrentUser(user)
+        setLoggedIn(true)
+        if (location.pathname === '/signin' || location.pathname === '/signup') {
+          history.push('/movies');
+        } else {
           history.push(location.pathname);
         }
       })
@@ -65,10 +65,10 @@ function App() {
         handleSignIn({ email: user.email, password })
       })
       .catch((err) => console.log(err))
-    }
-    
-    const handleSignIn = ({ email, password }) => {
-      mainApi.signIn({ email, password })
+  }
+
+  const handleSignIn = ({ email, password }) => {
+    mainApi.signIn({ email, password })
       .then(res => {
         tokenCheck();
         openTooltip({
@@ -185,7 +185,7 @@ function App() {
           onRemove={handleRemoveMovie}
           onEmptySearch={handleEmptySearch}
           component={Movies}
-          />
+        />
         <ProtectedRoute
           path='/saved-movies'
           loggedIn={loggedIn}
