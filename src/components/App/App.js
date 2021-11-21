@@ -39,15 +39,18 @@ function App() {
   }, [loggedIn, currentUser._id]);
 
   // USER
-
+  console.log(location.pathname)
+  
   const tokenCheck = useCallback(() => {
     mainApi.getUser()
-      .then((user) => {
-        setCurrentUser(user)
-        setLoggedIn(true)
-        if (location.pathname === '/signin' || location.pathname === '/signup') {
-          history.push('/movies');
-        } else {
+    .then((user) => {
+      setCurrentUser(user)
+      setLoggedIn(true)
+      if (location.pathname === '/signin' || location.pathname === '/signup') {
+        console.log('ok', location.pathname)
+        history.push('/movies');
+      } else {
+          console.log('no', location.pathname)
           history.push(location.pathname);
         }
       })
@@ -61,18 +64,21 @@ function App() {
 
   const handleSignUp = ({ name, email, password }) => {
     mainApi.createUser({ name, email, password })
-      .then(user => handleSignIn({ email: user.email, password }))
+      .then(user => {
+        handleSignIn({ email: user.email, password })
+      })
       .catch((err) => console.log(err))
-  }
-
-  const handleSignIn = ({ email, password }) => {
-    mainApi.signIn({ email, password })
+    }
+    
+    const handleSignIn = ({ email, password }) => {
+      mainApi.signIn({ email, password })
       .then(res => {
         tokenCheck();
         openTooltip({
           success: true,
           message: res.message,
         });
+        setTimeout(() => history.push('/movies'), 200)
       })
       .catch(err => console.log(err))
   }
