@@ -40,8 +40,6 @@ function App() {
 
   // USER
 
-  console.log(location.pathname);
-
   const tokenCheck = useCallback(() => {
     mainApi.getUser()
       .then((user) => {
