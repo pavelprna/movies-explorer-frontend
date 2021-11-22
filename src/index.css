@@ -1,0 +1,66 @@
+@import url(./vendor/normalize.css);
+@import url(./vendor/fonts/fonts.css);
+
+* {
+  box-sizing: border-box;
+}
+
+#root {
+  font-family: Inter, Helvetica, Arial, sans-serif;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/*
+ * disable auto-zoom on iphone input field focus 
+ * http://www.456bereastreet.com/archive/201212/ios_webkit_browsers_and_auto-zooming_form_controls/
+*/
+input[type='text']:focus,
+input[type='number']:focus,
+textarea:focus {
+	font-size: 16px;
+}
+
+/* disable auto-zoom on iphone input field focus */
+@media screen and (-webkit-min-device-pixel-ratio:0) {
+
+	select:focus,
+	textarea:focus,
+	input:focus {
+		font-size: 16px;
+	}
+}
+
+.section {
+  width: 100%;
+  padding: 70px 18px;
+}
+
+.section__container {
+  max-width: 1140px;
+  width: 100%;
+  margin: 0 auto;
+}
+
+.section__title {
+  font-size: 18px;
+  line-height: 22px;
+  letter-spacing: -0.04em;
+  font-weight: 400;
+  margin: 0 0 60px;
+  padding-bottom: 28px;
+  border-bottom: 1px solid #000;
+}
+
+@media (min-width: 768px) {
+  .section {
+    padding: 90px 50px;
+  }
+}
+
+@media (min-width: 1280px) {
+  .section {
+    padding: 100px 70px;
+  }
+}
